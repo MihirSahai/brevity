@@ -56,7 +56,7 @@ async def create_short_url(db: AsyncSession, request: ShortenRequest) -> Url:
     return url
 
 async def get_url_by_slug(db: AsyncSession, slug: str) -> Url | None:
-    result = await db.execute(select(Url).where(Url.slug == slug, Url.is_active == True))
+    result = await db.execute(select(Url).where(Url.slug == slug, Url.is_active))
     return result.scalar_one_or_none()
 
 async def record_click(db: AsyncSession, url: Url, ip: str, user_agent: str, referer: str) -> None:
